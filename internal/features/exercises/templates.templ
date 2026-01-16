@@ -1,0 +1,78 @@
+package exercises
+
+import "phobos/internal/ui/layouts"
+import "strconv"
+
+templ ExercisesPage(exercises []Exercise) {
+	@layouts.Page("Exercises") {
+		<div class="space-y-6">
+			<div class="flex items-center justify-between">
+				<h1 class="text-2xl font-bold text-gray-900">Exercises</h1>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border p-6">
+				<form hx-post="/exercises" hx-target="#exercise-list" hx-swap="beforeend" hx-on::after-request="this.reset()">
+					<div class="flex gap-3">
+						<input
+							type="text"
+							name="name"
+							placeholder="New exercise name..."
+							required
+							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						/>
+						<button
+							type="submit"
+							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						>
+							Add Exercise
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border">
+				<ul id="exercise-list" class="divide-y divide-gray-200">
+					for _, e := range exercises {
+						@ExerciseRow(e)
+					}
+				</ul>
+				if len(exercises) == 0 {
+					<p class="p-6 text-center text-gray-500">No exercises yet. Add your first one above.</p>
+				}
+			</div>
+		</div>
+	}
+}
+
+templ ExerciseRow(e Exercise) {
+	<li id={ "exercise-" + strconv.FormatInt(e.ID, 10) } class="flex items-center justify-between px-6 py-4 hover:bg-gray-50">
+		<span class="text-gray-900">{ e.Name }</span>
+		<button
+			hx-delete={ "/exercises/" + strconv.FormatInt(e.ID, 10) }
+			hx-target={ "#exercise-" + strconv.FormatInt(e.ID, 10) }
+			hx-swap="outerHTML"
+			hx-confirm="Delete this exercise?"
+			class="text-red-600 hover:text-red-800 text-sm font-medium"
+		>
+			Delete
+		</button>
+	</li>
+}
+
+templ ExerciseListFragment(exercises []Exercise) {
+	for _, e := range exercises {
+		@ExerciseRow(e)
+	}
+}
+
+// ExerciseSelect renders a select dropdown for choosing an exercise
+templ ExerciseSelect(exercises []Exercise, name, id string, selectedID int64) {
+	<select
+		name={ name }
+		id={ id }
+		class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+	>
+		<option value="">Select an exercise...</option>
+		for _, e := range exercises {
+			<option value={ strconv.FormatInt(e.ID, 10) } selected?={ e.ID == selectedID }>{ e.Name }</option>
+		}
+	</select>
+}

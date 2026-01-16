@@ -1,0 +1,44 @@
+package components
+
+type ToastType string
+
+const (
+	ToastSuccess ToastType = "success"
+	ToastError   ToastType = "error"
+	ToastInfo    ToastType = "info"
+)
+
+templ Toast(message string, toastType ToastType) {
+	<div
+		class={ "p-4 rounded-lg shadow-lg text-white mb-2 transition-opacity duration-300",
+			templ.KV("bg-green-500", toastType == ToastSuccess),
+			templ.KV("bg-red-500", toastType == ToastError),
+			templ.KV("bg-blue-500", toastType == ToastInfo) }
+		x-data="{ show: true }"
+		x-init="setTimeout(() => show = false, 3000)"
+		x-show="show"
+		x-transition
+	>
+		{ message }
+	</div>
+}
+
+// ToastOOB renders a toast with out-of-band swap
+templ ToastOOB(message string, toastType ToastType) {
+	<div id="toast" hx-swap-oob="innerHTML">
+		@Toast(message, toastType)
+	</div>
+}
+
+// Simple toast without Alpine.js
+templ SimpleToast(message string, toastType ToastType) {
+	<div
+		class={ "p-4 rounded-lg shadow-lg text-white mb-2",
+			templ.KV("bg-green-500", toastType == ToastSuccess),
+			templ.KV("bg-red-500", toastType == ToastError),
+			templ.KV("bg-blue-500", toastType == ToastInfo) }
+		_="on load wait 3s then transition opacity to 0 then remove me"
+	>
+		{ message }
+	</div>
+}

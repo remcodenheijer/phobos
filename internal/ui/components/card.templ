@@ -1,0 +1,25 @@
+package components
+
+templ Card() {
+	<div class="bg-white rounded-lg shadow-sm border p-6">
+		{ children... }
+	</div>
+}
+
+templ CardHeader() {
+	<div class="mb-4">
+		{ children... }
+	</div>
+}
+
+templ CardTitle() {
+	<h2 class="text-xl font-semibold text-gray-900">
+		{ children... }
+	</h2>
+}
+
+templ CardContent() {
+	<div>
+		{ children... }
+	</div>
+}

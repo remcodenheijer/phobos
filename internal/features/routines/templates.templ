@@ -1,0 +1,159 @@
+package routines
+
+import (
+	"phobos/internal/ui/layouts"
+	"phobos/internal/features/templates"
+	"strconv"
+)
+
+templ RoutinesPage(routines []Routine) {
+	@layouts.Page("Routines") {
+		<div class="space-y-6">
+			<div class="flex items-center justify-between">
+				<h1 class="text-2xl font-bold text-gray-900">Routines</h1>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border p-6">
+				<form hx-post="/routines" hx-target="#routine-list" hx-swap="beforeend" hx-on::after-request="this.reset()">
+					<div class="flex gap-3">
+						<input
+							type="text"
+							name="name"
+							placeholder="New routine name..."
+							required
+							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						/>
+						<button
+							type="submit"
+							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						>
+							Create Routine
+						</button>
+					</div>
+				</form>
+			</div>
+			<div id="routine-list" class="space-y-4">
+				for _, r := range routines {
+					@RoutineCard(r)
+				}
+				if len(routines) == 0 {
+					<p class="text-center text-gray-500 py-8">No routines yet. Create your first one above.</p>
+				}
+			</div>
+		</div>
+	}
+}
+
+templ RoutineCard(r Routine) {
+	<div id={ "routine-" + strconv.FormatInt(r.ID, 10) } class="bg-white rounded-lg shadow-sm border p-6">
+		<div class="flex items-center justify-between mb-2">
+			<a href={ templ.URL("/routines/" + strconv.FormatInt(r.ID, 10)) } class="text-lg font-semibold text-gray-900 hover:text-blue-600">
+				{ r.Name }
+			</a>
+			<button
+				hx-delete={ "/routines/" + strconv.FormatInt(r.ID, 10) }
+				hx-target={ "#routine-" + strconv.FormatInt(r.ID, 10) }
+				hx-swap="outerHTML"
+				hx-confirm="Delete this routine?"
+				class="text-red-600 hover:text-red-800 text-sm font-medium"
+			>
+				Delete
+			</button>
+		</div>
+		<p class="text-sm text-gray-500">
+			Click to view and manage templates
+		</p>
+	</div>
+}
+
+templ RoutineDetailPage(r *Routine, allTemplates []templates.WorkoutTemplate) {
+	@layouts.Page(r.Name) {
+		<div class="space-y-6">
+			<div class="flex items-center justify-between">
+				<div>
+					<a href="/routines" class="text-sm text-gray-500 hover:text-gray-700">&larr; Back to routines</a>
+					<h1 class="text-2xl font-bold text-gray-900 mt-1">{ r.Name }</h1>
+				</div>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border p-6">
+				<h2 class="text-lg font-semibold text-gray-900 mb-4">Edit Routine Name</h2>
+				<form hx-put={ "/routines/" + strconv.FormatInt(r.ID, 10) } hx-swap="none">
+					<div class="flex gap-3">
+						<input
+							type="text"
+							name="name"
+							value={ r.Name }
+							required
+							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						/>
+						<button
+							type="submit"
+							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						>
+							Update
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border p-6">
+				<h2 class="text-lg font-semibold text-gray-900 mb-4">Add Template</h2>
+				<form hx-post={ "/routines/" + strconv.FormatInt(r.ID, 10) + "/templates" } hx-target="#routine-templates" hx-swap="beforeend" hx-on::after-request="this.reset()">
+					<div class="flex gap-3">
+						<select
+							name="template_id"
+							required
+							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						>
+							<option value="">Select template...</option>
+							for _, t := range allTemplates {
+								<option value={ strconv.FormatInt(t.ID, 10) }>{ t.Name }</option>
+							}
+						</select>
+						<button
+							type="submit"
+							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						>
+							Add Template
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="bg-white rounded-lg shadow-sm border">
+				<h2 class="text-lg font-semibold text-gray-900 p-6 pb-4">Templates in Routine</h2>
+				<ul id="routine-templates" class="divide-y divide-gray-200">
+					for _, rt := range r.Templates {
+						@RoutineTemplateRow(rt)
+					}
+				</ul>
+				if len(r.Templates) == 0 {
+					<p class="px-6 pb-6 text-gray-500">No templates yet. Add some above.</p>
+				}
+			</div>
+		</div>
+	}
+}
+
+templ RoutineTemplateRow(rt RoutineTemplate) {
+	<li id={ "routine-template-" + strconv.FormatInt(rt.ID, 10) } class="flex items-center justify-between px-6 py-4 hover:bg-gray-50">
+		<div class="flex items-center gap-4">
+			<span class="text-gray-400 font-mono text-sm">{ strconv.Itoa(rt.Position) }</span>
+			<span class="font-medium text-gray-900">{ rt.Template.Name }</span>
+		</div>
+		<div class="flex items-center gap-3">
+			<a
+				href={ templ.URL("/workouts/new?template_id=" + strconv.FormatInt(rt.TemplateID, 10)) }
+				class="px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700"
+			>
+				Start
+			</a>
+			<button
+				hx-delete={ "/routines/templates/" + strconv.FormatInt(rt.ID, 10) }
+				hx-target={ "#routine-template-" + strconv.FormatInt(rt.ID, 10) }
+				hx-swap="outerHTML"
+				hx-confirm="Remove this template from the routine?"
+				class="text-red-600 hover:text-red-800 text-sm font-medium"
+			>
+				Remove
+			</button>
+		</div>
+	</li>
+}

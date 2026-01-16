@@ -1,0 +1,56 @@
+package components
+
+type ButtonVariant string
+
+const (
+	ButtonPrimary   ButtonVariant = "primary"
+	ButtonSecondary ButtonVariant = "secondary"
+	ButtonDanger    ButtonVariant = "danger"
+	ButtonGhost     ButtonVariant = "ghost"
+)
+
+type ButtonSize string
+
+const (
+	ButtonSm ButtonSize = "sm"
+	ButtonMd ButtonSize = "md"
+	ButtonLg ButtonSize = "lg"
+)
+
+func buttonClasses(variant ButtonVariant, size ButtonSize) string {
+	base := "inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+
+	variantClass := ""
+	switch variant {
+	case ButtonPrimary:
+		variantClass = "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+	case ButtonSecondary:
+		variantClass = "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500"
+	case ButtonDanger:
+		variantClass = "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
+	case ButtonGhost:
+		variantClass = "text-gray-600 hover:bg-gray-100 focus:ring-gray-500"
+	default:
+		variantClass = "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+	}
+
+	sizeClass := ""
+	switch size {
+	case ButtonSm:
+		sizeClass = "px-3 py-1.5 text-sm"
+	case ButtonMd:
+		sizeClass = "px-4 py-2 text-sm"
+	case ButtonLg:
+		sizeClass = "px-6 py-3 text-base"
+	default:
+		sizeClass = "px-4 py-2 text-sm"
+	}
+
+	return base + " " + variantClass + " " + sizeClass
+}
+
+templ Button(variant ButtonVariant, size ButtonSize) {
+	<button class={ buttonClasses(variant, size) }>
+		{ children... }
+	</button>
+}
