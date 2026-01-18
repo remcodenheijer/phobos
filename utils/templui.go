@@ -2,10 +2,10 @@
 package utils
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"fmt"
 	"time"
-
-	"crypto/rand"
 
 	"github.com/a-h/templ"
 
@@ -52,7 +52,9 @@ func MergeAttributes(attrs ...templ.Attributes) templ.Attributes {
 // RandomID generates a random ID string.
 // Example: RandomID() → "id-1a2b3c"
 func RandomID() string {
-	return fmt.Sprintf("id-%s", rand.Text())
+	b := make([]byte, 8)
+	rand.Read(b)
+	return fmt.Sprintf("id-%s", hex.EncodeToString(b))
 }
 
 // ScriptVersion is a timestamp generated at app start for cache busting.
