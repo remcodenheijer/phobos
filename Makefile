@@ -1,4 +1,4 @@
-.PHONY: build run dev migrate-up migrate-down migrate-create templ clean
+.PHONY: build run dev migrate-up migrate-down migrate-create templ clean docker-build docker-run docker-stop docker-logs
 
 # Build the application
 build: templ
@@ -40,3 +40,31 @@ deps:
 # Vendor dependencies
 vendor:
 	go mod vendor
+
+# Docker targets
+DOCKER_IMAGE := phobos
+DOCKER_CONTAINER := phobos-dev
+
+# Build Docker image
+docker-build:
+	docker build -t $(DOCKER_IMAGE) .
+
+# Run Docker container
+docker-run: docker-stop
+	docker run -d --name $(DOCKER_CONTAINER) \
+		-p 3000:3000 \
+		-v $(PWD)/phobos.db:/app/phobos.db \
+		$(DOCKER_IMAGE)
+	@echo "Container started at http://localhost:3000"
+
+# Stop Docker container
+docker-stop:
+	-docker stop $(DOCKER_CONTAINER) 2>/dev/null
+	-docker rm $(DOCKER_CONTAINER) 2>/dev/null
+
+# View Docker logs
+docker-logs:
+	docker logs -f $(DOCKER_CONTAINER)
+
+# Rebuild and restart Docker container
+docker-restart: docker-build docker-run

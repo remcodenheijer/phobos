@@ -1,0 +1,24 @@
+# Binary and database
+bin/
+*.db
+
+# IDE and editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Local scripts
+start.sh
+
+# Temporary files
+*.tmp
+*.log
