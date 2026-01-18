@@ -49,7 +49,7 @@ func HomePage(data DashboardData) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><h1 class=\"text-2xl font-bold text-gray-900\">Dashboard</h1><a href=\"/workouts/new\" class=\"px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700\">New Workout</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4\"><h1 class=\"text-2xl font-bold text-gray-900\">Dashboard</h1><a href=\"/workouts/new\" class=\"w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 text-center\">New Workout</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

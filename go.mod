@@ -3,6 +3,7 @@ module phobos
 go 1.23.0
 
 require (
+	github.com/Oudwins/tailwind-merge-go v0.2.1
 	github.com/a-h/templ v0.3.977
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/pressly/goose/v3 v3.24.1

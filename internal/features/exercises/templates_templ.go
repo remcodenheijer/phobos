@@ -44,7 +44,7 @@ func ExercisesPage(exercises []Exercise) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><h1 class=\"text-2xl font-bold text-gray-900\">Exercises</h1></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><form hx-post=\"/exercises\" hx-target=\"#exercise-list\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"flex gap-3\"><input type=\"text\" name=\"name\" placeholder=\"New exercise name...\" required class=\"flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Add Exercise</button></div></form></div><div class=\"bg-white rounded-lg shadow-sm border\"><ul id=\"exercise-list\" class=\"divide-y divide-gray-200\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><h1 class=\"text-2xl font-bold text-gray-900\">Exercises</h1></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><form hx-post=\"/exercises\" hx-target=\"#exercise-list\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"flex flex-col sm:flex-row gap-3\"><input type=\"text\" name=\"name\" placeholder=\"New exercise name...\" required class=\"flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Add Exercise</button></div></form></div><div class=\"bg-white rounded-lg shadow-sm border\"><ul id=\"exercise-list\" class=\"divide-y divide-gray-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -112,14 +112,14 @@ func ExerciseRow(e Exercise) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" class=\"flex items-center justify-between px-6 py-4 hover:bg-gray-50\"><span class=\"text-gray-900\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" class=\"flex items-center justify-between px-6 py-4 hover:bg-gray-50 gap-3\"><span class=\"text-gray-900 min-w-0 truncate\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(e.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/exercises/templates.templ`, Line: 47, Col: 38}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/exercises/templates.templ`, Line: 47, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -151,7 +151,7 @@ func ExerciseRow(e Exercise) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-swap=\"outerHTML\" hx-confirm=\"Delete this exercise?\" class=\"text-red-600 hover:text-red-800 text-sm font-medium\">Delete</button></li>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-swap=\"outerHTML\" hx-confirm=\"Delete this exercise?\" class=\"text-red-600 hover:text-red-800 text-sm font-medium min-h-[40px] shrink-0\">Delete</button></li>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

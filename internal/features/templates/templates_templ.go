@@ -47,7 +47,7 @@ func TemplatesPage(templates []WorkoutTemplate) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><h1 class=\"text-2xl font-bold text-gray-900\">Workout Templates</h1></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><form hx-post=\"/templates\" hx-target=\"#template-list\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"flex gap-3\"><input type=\"text\" name=\"name\" placeholder=\"New template name...\" required class=\"flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Create Template</button></div></form></div><div id=\"template-list\" class=\"space-y-4\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><h1 class=\"text-2xl font-bold text-gray-900\">Workout Templates</h1></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><form hx-post=\"/templates\" hx-target=\"#template-list\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"flex flex-col sm:flex-row gap-3\"><input type=\"text\" name=\"name\" placeholder=\"New template name...\" required class=\"flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Create Template</button></div></form></div><div id=\"template-list\" class=\"space-y-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -111,7 +111,7 @@ func TemplateCard(t WorkoutTemplate) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" class=\"bg-white rounded-lg shadow-sm border p-6\"><div class=\"flex items-center justify-between mb-4\"><a href=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" class=\"bg-white rounded-lg shadow-sm border p-6\"><div class=\"flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4\"><a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -150,7 +150,7 @@ func TemplateCard(t WorkoutTemplate) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" class=\"px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700\">Start Workout</a> <button hx-delete=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" class=\"flex-1 sm:flex-none min-h-[40px] px-3 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 text-center\">Start Workout</a> <button hx-delete=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -176,7 +176,7 @@ func TemplateCard(t WorkoutTemplate) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" hx-swap=\"outerHTML\" hx-confirm=\"Delete this template?\" class=\"px-3 py-1.5 text-red-600 hover:text-red-800 text-sm font-medium\">Delete</button></div></div><p class=\"text-sm text-gray-500\">Click to view and edit exercises</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" hx-swap=\"outerHTML\" hx-confirm=\"Delete this template?\" class=\"min-h-[40px] px-3 py-2 text-red-600 hover:text-red-800 text-sm font-medium\">Delete</button></div></div><p class=\"text-sm text-gray-500\">Click to view and edit exercises</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -217,7 +217,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"space-y-6\"><div class=\"flex items-center justify-between\"><div><a href=\"/templates\" class=\"text-sm text-gray-500 hover:text-gray-700\">&larr; Back to templates</a><h1 class=\"text-2xl font-bold text-gray-900 mt-1\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"space-y-6\"><div class=\"flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4\"><div><a href=\"/templates\" class=\"text-sm text-gray-500 hover:text-gray-700\">&larr; Back to templates</a><h1 class=\"text-2xl font-bold text-gray-900 mt-1\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -243,7 +243,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" class=\"px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700\">Start Workout</a></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><h2 class=\"text-lg font-semibold text-gray-900 mb-4\">Edit Template Name</h2><form hx-put=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" class=\"w-full sm:w-auto min-h-[44px] px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 text-center\">Start Workout</a></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><h2 class=\"text-lg font-semibold text-gray-900 mb-4\">Edit Template Name</h2><form hx-put=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -256,7 +256,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" hx-swap=\"none\"><div class=\"flex gap-3\"><input type=\"text\" name=\"name\" value=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" hx-swap=\"none\"><div class=\"flex flex-col sm:flex-row gap-3\"><input type=\"text\" name=\"name\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -269,7 +269,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" required class=\"flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Update</button></div></form></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><h2 class=\"text-lg font-semibold text-gray-900 mb-4\">Add Exercise</h2><form hx-post=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" required class=\"flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"> <button type=\"submit\" class=\"w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Update</button></div></form></div><div class=\"bg-white rounded-lg shadow-sm border p-6\"><h2 class=\"text-lg font-semibold text-gray-900 mb-4\">Add Exercise</h2><form hx-post=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -282,7 +282,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" hx-target=\"#template-exercises\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"grid grid-cols-1 md:grid-cols-4 gap-3\"><div class=\"md:col-span-2\"><select name=\"exercise_id\" required class=\"w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"><option value=\"\">Select exercise...</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" hx-target=\"#template-exercises\" hx-swap=\"beforeend\" hx-on::after-request=\"this.reset()\"><div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3\"><div class=\"sm:col-span-2\"><select name=\"exercise_id\" required class=\"w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"><option value=\"\">Select exercise...</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -318,7 +318,7 @@ func TemplateDetailPage(t *WorkoutTemplate, allExercises []exercises.Exercise) t
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</select></div><div><input type=\"number\" name=\"target_sets\" placeholder=\"Sets\" min=\"1\" required class=\"w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"></div><div><input type=\"number\" name=\"target_reps\" placeholder=\"Reps\" min=\"1\" required class=\"w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"></div></div><button type=\"submit\" class=\"mt-3 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Add Exercise</button></form></div><div class=\"bg-white rounded-lg shadow-sm border\"><h2 class=\"text-lg font-semibold text-gray-900 p-6 pb-4\">Exercises</h2><ul id=\"template-exercises\" class=\"divide-y divide-gray-200\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</select></div><div><input type=\"number\" name=\"target_sets\" placeholder=\"Sets\" min=\"1\" required class=\"w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"></div><div><input type=\"number\" name=\"target_reps\" placeholder=\"Reps\" min=\"1\" required class=\"w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500\"></div></div><button type=\"submit\" class=\"w-full sm:w-auto mt-3 min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2\">Add Exercise</button></form></div><div class=\"bg-white rounded-lg shadow-sm border\"><h2 class=\"text-lg font-semibold text-gray-900 p-6 pb-4\">Exercises</h2><ul id=\"template-exercises\" class=\"divide-y divide-gray-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -386,40 +386,40 @@ func TemplateExerciseRow(te TemplateExercise) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "\" class=\"flex items-center justify-between px-6 py-4 hover:bg-gray-50\"><div class=\"flex items-center gap-4\"><span class=\"text-gray-400 font-mono text-sm\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "\" class=\"flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-6 py-4 hover:bg-gray-50\"><div class=\"flex items-center gap-3 min-w-0\"><span class=\"text-gray-400 font-mono text-sm shrink-0\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var21 string
 		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(te.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 174, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 174, Col: 85}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</span> <span class=\"font-medium text-gray-900\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</span><div class=\"min-w-0\"><span class=\"font-medium text-gray-900 block truncate\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
 		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(te.Exercise.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 175, Col: 61}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 176, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</span> <span class=\"text-gray-500\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</span> <span class=\"text-gray-500 text-sm\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var23 string
 		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(te.TargetSets))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 176, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 177, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 		if templ_7745c5c3_Err != nil {
@@ -432,20 +432,20 @@ func TemplateExerciseRow(te TemplateExercise) templ.Component {
 		var templ_7745c5c3_Var24 string
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(te.TargetReps))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 176, Col: 99}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 177, Col: 108}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, " reps</span></div><button hx-delete=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, " reps</span></div></div><button hx-delete=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var25 string
 		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs("/templates/exercises/" + strconv.FormatInt(te.ID, 10))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 179, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 181, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
@@ -458,13 +458,13 @@ func TemplateExerciseRow(te TemplateExercise) templ.Component {
 		var templ_7745c5c3_Var26 string
 		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs("#template-exercise-" + strconv.FormatInt(te.ID, 10))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 180, Col: 67}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/features/templates/templates.templ`, Line: 182, Col: 67}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\" hx-swap=\"outerHTML\" hx-confirm=\"Remove this exercise from the template?\" class=\"text-red-600 hover:text-red-800 text-sm font-medium\">Remove</button></li>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\" hx-swap=\"outerHTML\" hx-confirm=\"Remove this exercise from the template?\" class=\"text-red-600 hover:text-red-800 text-sm font-medium min-h-[40px] self-end sm:self-auto\">Remove</button></li>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -58,6 +58,7 @@ func main() {
 
 	// Serve static files
 	app.Static("/static", "./static")
+	app.Static("/assets", "./assets")
 
 	// Register routes
 	home.RegisterRoutes(app)

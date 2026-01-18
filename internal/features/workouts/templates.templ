@@ -164,7 +164,7 @@ templ NewWorkoutPage(allExercises []exercises.Exercise) {
 templ WorkoutDetailPage(w *Workout, allExercises []exercises.Exercise) {
 	@layouts.Page(w.Name) {
 		<div class="space-y-6">
-			<div class="flex items-center justify-between">
+			<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 				<div>
 					if w.IsFinished() {
 						<a href="/workouts/history" class="text-sm text-gray-500 hover:text-gray-700">&larr; Back to history</a>
@@ -178,7 +178,7 @@ templ WorkoutDetailPage(w *Workout, allExercises []exercises.Exercise) {
 					<button
 						hx-post={ "/workouts/" + strconv.FormatInt(w.ID, 10) + "/finish" }
 						hx-confirm="Finish this workout? It will become read-only."
-						class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+						class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
 					>
 						Finish Workout
 					</button>
@@ -237,11 +237,11 @@ templ WorkoutDetailPage(w *Workout, allExercises []exercises.Exercise) {
 				<div class="bg-white rounded-lg shadow-sm border p-6">
 					<h2 class="text-lg font-semibold text-gray-900 mb-4">Add Exercise</h2>
 					<form hx-post={ "/workouts/" + strconv.FormatInt(w.ID, 10) + "/exercises" } hx-target="#workout-exercises" hx-swap="beforeend">
-						<div class="flex gap-3">
+						<div class="flex flex-col sm:flex-row gap-3">
 							<select
 								name="exercise_id"
 								required
-								class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+								class="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 							>
 								<option value="">Select exercise...</option>
 								for _, e := range allExercises {
@@ -250,9 +250,9 @@ templ WorkoutDetailPage(w *Workout, allExercises []exercises.Exercise) {
 							</select>
 							<button
 								type="submit"
-								class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+								class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
 							>
-								Add
+								Add Exercise
 							</button>
 						</div>
 					</form>
@@ -313,30 +313,32 @@ templ WorkoutExerciseCard(we WorkoutExercise, readOnly bool, templateID *int64) 
 					hx-target={ "#sets-" + strconv.FormatInt(we.ID, 10) }
 					hx-swap="beforeend"
 					hx-on::after-request="this.reset()"
-					class="flex gap-2 items-center"
+					class="flex flex-col sm:flex-row gap-2 sm:items-center"
 				>
-					<input
-						type="number"
-						name="reps"
-						placeholder="Reps"
-						min="0"
-						required
-						class="w-20 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-					/>
-					<span class="text-gray-400">x</span>
-					<input
-						type="number"
-						name="weight"
-						placeholder="Weight"
-						min="0"
-						step="0.5"
-						required
-						class="w-24 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-					/>
-					<span class="text-gray-400">lbs</span>
+					<div class="flex items-center gap-2 flex-1">
+						<input
+							type="number"
+							name="reps"
+							placeholder="Reps"
+							min="0"
+							required
+							class="w-full sm:w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						/>
+						<span class="text-gray-400 shrink-0">x</span>
+						<input
+							type="number"
+							name="weight"
+							placeholder="Weight"
+							min="0"
+							step="0.5"
+							required
+							class="w-full sm:w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						/>
+						<span class="text-gray-400 shrink-0">lbs</span>
+					</div>
 					<button
 						type="submit"
-						class="px-3 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 text-sm"
+						class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
 					>
 						Add Set
 					</button>
@@ -347,8 +349,8 @@ templ WorkoutExerciseCard(we WorkoutExercise, readOnly bool, templateID *int64) 
 }
 
 templ SetRow(s LoggedSet, readOnly bool) {
-	<div id={ "set-" + strconv.FormatInt(s.ID, 10) } class="flex items-center gap-2 text-sm">
-		<span class="w-8 text-gray-400 font-mono">{ strconv.Itoa(s.Position) }.</span>
+	<div id={ "set-" + strconv.FormatInt(s.ID, 10) } class="flex items-center gap-2">
+		<span class="w-8 text-gray-400 font-mono text-sm shrink-0">{ strconv.Itoa(s.Position) }.</span>
 		if readOnly {
 			<span class="text-gray-900">{ strconv.Itoa(s.Reps) } reps</span>
 			<span class="text-gray-400">x</span>
@@ -363,9 +365,9 @@ templ SetRow(s LoggedSet, readOnly bool) {
 				hx-trigger="change"
 				hx-include={ "#set-" + strconv.FormatInt(s.ID, 10) + " input" }
 				hx-swap="none"
-				class="w-16 px-2 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+				class="w-full sm:w-16 min-h-[40px] px-2 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 			/>
-			<span class="text-gray-400">x</span>
+			<span class="text-gray-400 shrink-0">x</span>
 			<input
 				type="number"
 				name="weight"
@@ -376,14 +378,14 @@ templ SetRow(s LoggedSet, readOnly bool) {
 				hx-trigger="change"
 				hx-include={ "#set-" + strconv.FormatInt(s.ID, 10) + " input" }
 				hx-swap="none"
-				class="w-20 px-2 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+				class="w-full sm:w-20 min-h-[40px] px-2 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 			/>
-			<span class="text-gray-400">lbs</span>
+			<span class="text-gray-400 shrink-0">lbs</span>
 			<button
 				hx-delete={ "/workouts/sets/" + strconv.FormatInt(s.ID, 10) }
 				hx-target={ "#set-" + strconv.FormatInt(s.ID, 10) }
 				hx-swap="outerHTML"
-				class="text-red-500 hover:text-red-700 ml-2"
+				class="text-red-500 hover:text-red-700 min-w-[40px] min-h-[40px] flex items-center justify-center shrink-0"
 			>
 				&times;
 			</button>

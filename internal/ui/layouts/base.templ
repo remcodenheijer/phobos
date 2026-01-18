@@ -1,5 +1,11 @@
 package layouts
 
+import (
+	"phobos/components/dialog"
+	"phobos/components/sheet"
+	"phobos/components/icon"
+)
+
 templ Base(title string) {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -9,7 +15,63 @@ templ Base(title string) {
 			<title>{ title } | Phobos</title>
 			<script src="https://cdn.tailwindcss.com"></script>
 			<script src="/static/vendor/htmx.min.js"></script>
+			<script>
+				tailwind.config = {
+					theme: {
+						extend: {
+							colors: {
+								border: 'hsl(var(--border))',
+								input: 'hsl(var(--input))',
+								ring: 'hsl(var(--ring))',
+								background: 'hsl(var(--background))',
+								foreground: 'hsl(var(--foreground))',
+								primary: {
+									DEFAULT: 'hsl(var(--primary))',
+									foreground: 'hsl(var(--primary-foreground))',
+								},
+								secondary: {
+									DEFAULT: 'hsl(var(--secondary))',
+									foreground: 'hsl(var(--secondary-foreground))',
+								},
+								destructive: {
+									DEFAULT: 'hsl(var(--destructive))',
+									foreground: 'hsl(var(--destructive-foreground))',
+								},
+								muted: {
+									DEFAULT: 'hsl(var(--muted))',
+									foreground: 'hsl(var(--muted-foreground))',
+								},
+								accent: {
+									DEFAULT: 'hsl(var(--accent))',
+									foreground: 'hsl(var(--accent-foreground))',
+								},
+							},
+						},
+					},
+				}
+			</script>
 			<style>
+				:root {
+					--background: 0 0% 100%;
+					--foreground: 222.2 84% 4.9%;
+					--muted: 210 40% 96.1%;
+					--muted-foreground: 215.4 16.3% 46.9%;
+					--popover: 0 0% 100%;
+					--popover-foreground: 222.2 84% 4.9%;
+					--card: 0 0% 100%;
+					--card-foreground: 222.2 84% 4.9%;
+					--border: 214.3 31.8% 91.4%;
+					--input: 214.3 31.8% 91.4%;
+					--primary: 221.2 83.2% 53.3%;
+					--primary-foreground: 210 40% 98%;
+					--secondary: 210 40% 96.1%;
+					--secondary-foreground: 222.2 47.4% 11.2%;
+					--accent: 210 40% 96.1%;
+					--accent-foreground: 222.2 47.4% 11.2%;
+					--destructive: 0 84.2% 60.2%;
+					--destructive-foreground: 210 40% 98%;
+					--ring: 221.2 83.2% 53.3%;
+				}
 				/* Loading indicator */
 				.htmx-request .htmx-indicator {
 					display: inline-block;
@@ -18,6 +80,7 @@ templ Base(title string) {
 					display: none;
 				}
 			</style>
+			@dialog.Script()
 		</head>
 		<body class="min-h-screen bg-gray-50">
 			@Navigation()
@@ -34,12 +97,64 @@ templ Navigation() {
 		<div class="container mx-auto px-4 max-w-4xl">
 			<div class="flex items-center justify-between h-14">
 				<a href="/" class="font-bold text-lg text-gray-900">Phobos</a>
-				<div class="flex space-x-4">
+				<!-- Desktop nav - hidden on mobile -->
+				<div class="hidden sm:flex space-x-4">
 					<a href="/workouts" class="text-gray-600 hover:text-gray-900 text-sm">Workouts</a>
 					<a href="/workouts/history" class="text-gray-600 hover:text-gray-900 text-sm">History</a>
 					<a href="/templates" class="text-gray-600 hover:text-gray-900 text-sm">Templates</a>
 					<a href="/routines" class="text-gray-600 hover:text-gray-900 text-sm">Routines</a>
 					<a href="/exercises" class="text-gray-600 hover:text-gray-900 text-sm">Exercises</a>
+				</div>
+				<!-- Mobile nav - Sheet component -->
+				<div class="sm:hidden">
+					@sheet.Sheet(sheet.Props{ID: "mobile-nav", Side: sheet.SideRight}) {
+						@sheet.Trigger() {
+							<button class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg" aria-label="Open menu">
+								@icon.Icon("menu")()
+							</button>
+						}
+						@sheet.Content(sheet.ContentProps{HideCloseButton: true}) {
+							@sheet.Header() {
+								@sheet.Title() {
+									Phobos
+								}
+							}
+							<nav class="flex flex-col px-4 py-2 space-y-1">
+								@sheet.Close() {
+									<a href="/workouts" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+										Workouts
+									</a>
+								}
+								@sheet.Close() {
+									<a href="/workouts/history" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+										History
+									</a>
+								}
+								@sheet.Close() {
+									<a href="/templates" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+										Templates
+									</a>
+								}
+								@sheet.Close() {
+									<a href="/routines" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+										Routines
+									</a>
+								}
+								@sheet.Close() {
+									<a href="/exercises" class="block px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+										Exercises
+									</a>
+								}
+							</nav>
+							@sheet.Footer() {
+								@sheet.Close() {
+									<button class="w-full px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg font-medium">
+										Close
+									</button>
+								}
+							}
+						}
+					}
 				</div>
 			</div>
 		</div>

@@ -14,17 +14,17 @@ templ RoutinesPage(routines []Routine) {
 			</div>
 			<div class="bg-white rounded-lg shadow-sm border p-6">
 				<form hx-post="/routines" hx-target="#routine-list" hx-swap="beforeend" hx-on::after-request="this.reset()">
-					<div class="flex gap-3">
+					<div class="flex flex-col sm:flex-row gap-3">
 						<input
 							type="text"
 							name="name"
 							placeholder="New routine name..."
 							required
-							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+							class="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 						/>
 						<button
 							type="submit"
-							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+							class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 						>
 							Create Routine
 						</button>
@@ -45,7 +45,7 @@ templ RoutinesPage(routines []Routine) {
 
 templ RoutineCard(r Routine) {
 	<div id={ "routine-" + strconv.FormatInt(r.ID, 10) } class="bg-white rounded-lg shadow-sm border p-6">
-		<div class="flex items-center justify-between mb-2">
+		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
 			<a href={ templ.URL("/routines/" + strconv.FormatInt(r.ID, 10)) } class="text-lg font-semibold text-gray-900 hover:text-blue-600">
 				{ r.Name }
 			</a>
@@ -54,7 +54,7 @@ templ RoutineCard(r Routine) {
 				hx-target={ "#routine-" + strconv.FormatInt(r.ID, 10) }
 				hx-swap="outerHTML"
 				hx-confirm="Delete this routine?"
-				class="text-red-600 hover:text-red-800 text-sm font-medium"
+				class="text-red-600 hover:text-red-800 text-sm font-medium min-h-[40px] self-end sm:self-auto"
 			>
 				Delete
 			</button>
@@ -77,17 +77,17 @@ templ RoutineDetailPage(r *Routine, allTemplates []templates.WorkoutTemplate) {
 			<div class="bg-white rounded-lg shadow-sm border p-6">
 				<h2 class="text-lg font-semibold text-gray-900 mb-4">Edit Routine Name</h2>
 				<form hx-put={ "/routines/" + strconv.FormatInt(r.ID, 10) } hx-swap="none">
-					<div class="flex gap-3">
+					<div class="flex flex-col sm:flex-row gap-3">
 						<input
 							type="text"
 							name="name"
 							value={ r.Name }
 							required
-							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+							class="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 						/>
 						<button
 							type="submit"
-							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+							class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 						>
 							Update
 						</button>
@@ -97,11 +97,11 @@ templ RoutineDetailPage(r *Routine, allTemplates []templates.WorkoutTemplate) {
 			<div class="bg-white rounded-lg shadow-sm border p-6">
 				<h2 class="text-lg font-semibold text-gray-900 mb-4">Add Template</h2>
 				<form hx-post={ "/routines/" + strconv.FormatInt(r.ID, 10) + "/templates" } hx-target="#routine-templates" hx-swap="beforeend" hx-on::after-request="this.reset()">
-					<div class="flex gap-3">
+					<div class="flex flex-col sm:flex-row gap-3">
 						<select
 							name="template_id"
 							required
-							class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+							class="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 						>
 							<option value="">Select template...</option>
 							for _, t := range allTemplates {
@@ -110,7 +110,7 @@ templ RoutineDetailPage(r *Routine, allTemplates []templates.WorkoutTemplate) {
 						</select>
 						<button
 							type="submit"
-							class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+							class="w-full sm:w-auto min-h-[44px] px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 						>
 							Add Template
 						</button>
@@ -133,15 +133,15 @@ templ RoutineDetailPage(r *Routine, allTemplates []templates.WorkoutTemplate) {
 }
 
 templ RoutineTemplateRow(rt RoutineTemplate) {
-	<li id={ "routine-template-" + strconv.FormatInt(rt.ID, 10) } class="flex items-center justify-between px-6 py-4 hover:bg-gray-50">
-		<div class="flex items-center gap-4">
-			<span class="text-gray-400 font-mono text-sm">{ strconv.Itoa(rt.Position) }</span>
-			<span class="font-medium text-gray-900">{ rt.Template.Name }</span>
+	<li id={ "routine-template-" + strconv.FormatInt(rt.ID, 10) } class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-4 hover:bg-gray-50">
+		<div class="flex items-center gap-3 min-w-0">
+			<span class="text-gray-400 font-mono text-sm shrink-0">{ strconv.Itoa(rt.Position) }</span>
+			<span class="font-medium text-gray-900 truncate">{ rt.Template.Name }</span>
 		</div>
-		<div class="flex items-center gap-3">
+		<div class="flex items-center gap-3 self-end sm:self-auto">
 			<a
 				href={ templ.URL("/workouts/new?template_id=" + strconv.FormatInt(rt.TemplateID, 10)) }
-				class="px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700"
+				class="min-h-[40px] px-3 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700"
 			>
 				Start
 			</a>
@@ -150,7 +150,7 @@ templ RoutineTemplateRow(rt RoutineTemplate) {
 				hx-target={ "#routine-template-" + strconv.FormatInt(rt.ID, 10) }
 				hx-swap="outerHTML"
 				hx-confirm="Remove this template from the routine?"
-				class="text-red-600 hover:text-red-800 text-sm font-medium"
+				class="text-red-600 hover:text-red-800 text-sm font-medium min-h-[40px]"
 			>
 				Remove
 			</button>
