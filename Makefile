@@ -49,11 +49,10 @@ DOCKER_CONTAINER := phobos-dev
 docker-build:
 	docker build -t $(DOCKER_IMAGE) .
 
-# Run Docker container
+# Run Docker container (clean database on each restart)
 docker-run: docker-stop
 	docker run -d --name $(DOCKER_CONTAINER) \
 		-p 3000:3000 \
-		-v $(PWD)/phobos.db:/app/phobos.db \
 		$(DOCKER_IMAGE)
 	@echo "Container started at http://localhost:3000"
 

@@ -35,8 +35,14 @@ COPY --from=builder /app/server .
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/assets ./assets
 
+# Copy migrations for database setup
+COPY --from=builder /app/migrations ./migrations
+
+# Create data directory for ephemeral database
+RUN mkdir -p /app/data
+
 # Expose port
 EXPOSE 3000
 
-# Run the server
-CMD ["./server", "-port", "3000"]
+# Run the server with ephemeral database (clean on each restart)
+CMD ["./server", "-port", "3000", "-db", "/app/data/phobos.db"]
