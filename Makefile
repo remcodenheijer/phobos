@@ -51,9 +51,10 @@ docker-build:
 
 # Run Docker container with persistent database volume
 docker-run: docker-destroy
+	mkdir -p $(PWD)/data
 	docker run -d --name $(DOCKER_CONTAINER) \
 		-p 3000:3000 \
-		-v $(PWD)/phobos.db:/app/data/phobos.db \
+		-v $(PWD)/data:/app/data \
 		$(DOCKER_IMAGE)
 	@echo "Container started at http://localhost:3000"
 
